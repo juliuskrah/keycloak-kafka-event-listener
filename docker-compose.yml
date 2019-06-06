@@ -34,8 +34,31 @@ services:
       - '9092:9092'
     depends_on: 
       - zookeeper
-
-
+  keycloak:
+    image: juliuskrah/keycloak:${TAG}
+    container_name: kkeycloak
+    build:
+      context: .
+      dockerfile: ./keycloak/Dockerfile
+    environment: 
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - KAFKA_KEY_SERIALIZER_CLASS=org.apache.kafka.common.serialization.StringSerializer
+      - KAFKA_VALUE_SERIALIZER_CLASS=org.apache.kafka.common.serialization.StringSerializer
+      - KAFKA_ACKS=all
+      - KAFKA_DELIVERY_TIMEOUT_MS=3000
+      - KAFKA_REQUEST_TIMEOUT_MS=2000
+      - KAFKA_LINGER_MS=1
+      - KAFKA_BATCH_SIZE=16384
+      - KAFKA_BUFFER_MEMORY=33554432
+      - KEYCLOAK_PROVIDER_LOGLEVEL=DEBUG
+      - KEYCLOAK_USER=juliuskrah
+      - KEYCLOAK_PASSWORD=password
+      - DB_DATABASE=identity
+      - DB_SCHEMA=identity
+      - DB_USER=identity
+      - DB_PASSWORD=identity
+    ports: 
+      - '8080:8080'
 
 volumes: 
   keycloakdb:

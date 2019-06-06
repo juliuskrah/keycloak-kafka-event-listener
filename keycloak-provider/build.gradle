@@ -1,0 +1,72 @@
+plugins {
+    id "io.spring.dependency-management" version "1.0.7.RELEASE"
+    id "java"
+    id "net.ltgt.apt-eclipse" version "0.21"
+    id "net.ltgt.apt-idea" version "0.21"
+    id "com.github.johnrengelman.shadow" version "4.0.2"
+    id "application"
+}
+
+ext {
+    keycloakVersion = '6.0.1'
+    lombokVersion = '1.18.8'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+archivesBaseName = "kafka-event-listener-provider"
+version "0.1"
+group "com.juliuskrah.keycloak.provider"
+
+repositories {
+    mavenCentral()
+    maven { url "https://jcenter.bintray.com" }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'io.micronaut:micronaut-bom:1.1.0'
+    }
+}
+
+configurations {
+    // for dependencies that are needed for development only
+    developmentOnly 
+}
+
+dependencies {
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+	implementation "org.apache.kafka:kafka-clients:2.2.0"
+    compileOnly "org.jboss.logging:jboss-logging:3.4.0.Final"
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    compileOnly "org.keycloak:keycloak-core:$keycloakVersion"
+    compileOnly "org.keycloak:keycloak-server-spi:$keycloakVersion"
+    compileOnly "org.keycloak:keycloak-server-spi-private:$keycloakVersion"
+	compileOnly "javax:javaee-api:8.0.1"
+    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
+    testImplementation "org.junit.jupiter:junit-jupiter-api"
+    testImplementation "io.micronaut.test:micronaut-test-junit5"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine"
+}
+
+test.classpath += configurations.developmentOnly
+
+mainClassName = "com.juliuskrah.keycloak.provider.Application"
+
+// use JUnit 5 platform
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile){
+    options.encoding = "UTF-8"
+    options.compilerArgs.add('-parameters')
+}
+
+
+shadowJar {
+    mergeServiceFiles()
+}
+
+run.classpath += configurations.developmentOnly
+run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')

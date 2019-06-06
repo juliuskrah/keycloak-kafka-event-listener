@@ -105,8 +105,8 @@
             <logger category="org.keycloak">
                 <level name="${env.KEYCLOAK_LOGLEVEL:INFO}"/>
             </logger>
-            <logger category="com.stlghana.keycloak.provider">
-                <level name="${env.STLGHANA_KEYCLOAK_PROVIDER_LOGLEVEL:INFO}"/>
+            <logger category="com.juliuskrah.keycloak.provider">
+                <level name="${env.KEYCLOAK_PROVIDER_LOGLEVEL:INFO}"/>
             </logger>
             <root-logger>
                 <level name="${env.ROOT_LOGLEVEL:INFO}"/>
@@ -439,7 +439,7 @@
                 </provider>
             </spi>
             <spi name="eventsListener">
-                <provider name="kraken" enabled="true">
+                <provider name="keycloak-demo" enabled="true">
                     <properties>
                         <property name="exclude-events" value="[&quot;REFRESH_TOKEN&quot;,&quot;CODE_TO_TOKEN&quot;,&quot;CLIENT_LOGIN&quot;]"/>
                         <property name="kafkaBrokerBinder" value="${env.KAFKA_BOOTSTRAP_SERVERS:localhost}"/>
