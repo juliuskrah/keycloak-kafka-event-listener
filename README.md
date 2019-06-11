@@ -37,3 +37,15 @@ password: password
 Go to the `Events` left menu item, and navigate to `Config`. Under `Event Listeners`, add `keycloak-demo` and save.
 
 Logout and log back in. Watch the console for changes.
+
+
+## Building the Containers
+
+To build the containers:
+
+```bash
+> cd keycloak-provider
+> ./gradlew clean assemble
+> cd ..
+> docker-compose up -d --build
+```

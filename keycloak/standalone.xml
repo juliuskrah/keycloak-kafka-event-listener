@@ -441,7 +441,7 @@
             <spi name="eventsListener">
                 <provider name="keycloak-demo" enabled="true">
                     <properties>
-                        <property name="exclude-events" value="[&quot;REFRESH_TOKEN&quot;,&quot;CODE_TO_TOKEN&quot;,&quot;CLIENT_LOGIN&quot;]"/>
+                        <property name="exclude-events" value="[&quot;REFRESH_TOKEN&quot;,&quot;CODE_TO_TOKEN&quot;,&quot;CLIENT_LOGIN&quot;,&quot;LOGIN_ERROR&quot;,&quot;REGISTER_ERROR&quot;,&quot;LOGOUT_ERROR&quot;,&quot;LOGOUT&quot;,&quot;CODE_TO_TOKEN_ERROR&quot;]"/>
                         <property name="kafkaBrokerBinder" value="${env.KAFKA_BOOTSTRAP_SERVERS:localhost}"/>
                         <property name="kafkaKeySerializerClass" value="${env.KAFKA_KEY_SERIALIZER_CLASS:org.apache.kafka.common.serialization.StringSerializer}"/>
                         <property name="kafkaValueSerializerClass" value="${env.KAFKA_VALUE_SERIALIZER_CLASS:org.apache.kafka.common.serialization.StringSerializer}"/>

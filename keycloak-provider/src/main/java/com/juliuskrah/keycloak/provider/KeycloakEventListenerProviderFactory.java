@@ -67,7 +67,7 @@ public class KeycloakEventListenerProviderFactory implements EventListenerProvid
 			InitialContext ctx = new InitialContext();
 			this.mes = (ManagedExecutorService) ctx.lookup("java:jboss/ee/concurrency/executor/default");
 			log.debug("Executor Service created successfully {}", mes);
-			keycloakEventListenerProvider = new KeycloakEventListenerProvider(mes, excludedEvents);
+			keycloakEventListenerProvider = new KeycloakEventListenerProvider(mes, excludedEvents, factory.create());
 		} catch (NamingException e) {
 			log.error("Error creating Executor Service (StackTrace)", e);
 			RuntimeException ex = new RuntimeException();

@@ -1,6 +1,6 @@
 package com.juliuskrah.keycloak.provider;
 
-import static java.util.Objects.*;
+import static java.util.Objects.nonNull;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import org.keycloak.events.Event;
 import org.keycloak.events.EventListenerProvider;
 import org.keycloak.events.EventType;
 import org.keycloak.events.admin.AdminEvent;
+import org.keycloak.models.KeycloakSession;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class KeycloakEventListenerProvider implements EventListenerProvider {
 	private final ManagedExecutorService mes;
 	private final List<EventType> excludedEvents;
+	private final KeycloakSession session;
 
 	@Override
 	public void close() {
@@ -29,7 +31,7 @@ public class KeycloakEventListenerProvider implements EventListenerProvider {
 	public void onEvent(Event event) {
 		if (nonNull(excludedEvents) && !excludedEvents.contains(event.getType())) {
 			log.debug("Received event {}, with details: {}", event.getType(), event.getDetails());
-			mes.submit(new KeycloakEventListener(event));
+			mes.submit(new KeycloakEventListener(event, session));
 			return;
 		}
 		log.debug("Ignoring event type: {}", event.getType());

@@ -13,15 +13,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class KeycloakEventProducer {
 
-	private static Producer<String, String> INSTANCE;
+	private static Producer<String, Object> INSTANCE;
 
-	static public Producer<String, String> create(Properties props) {
+	static public Producer<String, Object> create(Properties props) {
 		if (isNull(INSTANCE))
 			INSTANCE = new KafkaProducer<>(props);
 		return INSTANCE;
 	}
 
-	static public Producer<String, String> get() {
+	static public Producer<String, Object> get() {
 		return INSTANCE;
 	}
 

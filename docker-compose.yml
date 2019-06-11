@@ -43,7 +43,7 @@ services:
     environment: 
       - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
       - KAFKA_KEY_SERIALIZER_CLASS=org.apache.kafka.common.serialization.StringSerializer
-      - KAFKA_VALUE_SERIALIZER_CLASS=org.apache.kafka.common.serialization.StringSerializer
+      - KAFKA_VALUE_SERIALIZER_CLASS=com.juliuskrah.keycloak.provider.JsonSerializer
       - KAFKA_ACKS=all
       - KAFKA_DELIVERY_TIMEOUT_MS=3000
       - KAFKA_REQUEST_TIMEOUT_MS=2000
